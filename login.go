@@ -97,16 +97,16 @@ func get_sessions() []string {
     return sessions
 }
 
-func login(username string, password string, cmd string) string {
+func login(username string, password string, desktop string) string {
 
     send_query(Query{Type: "create_session", User: username} )
     send_query( Query{Type: "post_auth_message_response", Response: password} )
-	// change dinit with your desktop wrapper script
-    cmd_arr := []string{"dinit","--wm"}
-    if (cmd == "shell") {
+	// update with your desktop wrapper script
+    cmd_arr := []string{""}
+    if (desktop == "shell") {
       cmd_arr = []string{"/bin/bash"}
     } else {
-      cmd_arr = []string{"dinit","--wm",cmd}
+      cmd_arr = []string{desktop}
     }
     login_ret := send_query(Query{Type: "start_session", Cmd: cmd_arr } )
 
